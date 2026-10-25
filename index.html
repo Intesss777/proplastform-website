@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПроПластФорм — Литьё пластмасс под давлением, Махачкала</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #0C509D;
+  --navy: #1F3060;
+  --silver: #B0BFC7;
+  --dark: #0A1428;
+  --mid: #152246;
+  --white: #fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'PT Sans',sans-serif;background:var(--dark);color:var(--silver);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Russo One',sans-serif;line-height:1.05}
+
+/* SKIP LINK */
+.skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;background:var(--blue);color:#fff;padding:8px 20px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none}
+.skip-link:focus{left:8px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+.nav.stuck{background:rgba(10,20,40,.97);backdrop-filter:blur(16px);padding:14px 48px;border-bottom:1px solid rgba(12,80,157,.25)}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-mark{width:38px;height:38px;flex-shrink:0}
+.nav-name{font-family:'Russo One',sans-serif;font-size:17px;color:#fff;letter-spacing:.02em;line-height:1.1}
+.nav-name em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--silver);text-decoration:none;letter-spacing:.09em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-btn{background:var(--blue);color:#fff!important;padding:10px 24px;border-radius:10px;transition:background .2s!important}
+.nav-btn:hover{background:#0d5db3!important}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;min-width:44px;min-height:44px;align-items:center;justify-content:center}
+.nav-links a.nav-active{color:#fff}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--silver);transition:all .3s}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(10,20,40,.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:'Russo One',sans-serif;font-size:22px;color:#fff;text-decoration:none;letter-spacing:.05em}
+.mob-menu a:hover{color:var(--blue)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:var(--navy);overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 65% 45%,rgba(12,80,157,.4) 0%,transparent 70%),linear-gradient(140deg,#080f22 0%,#1F3060 55%,#080f22 100%)}
+.hero-grid{position:absolute;inset:0;opacity:.045;background-image:repeating-linear-gradient(60deg,transparent,transparent 38px,rgba(176,191,199,1) 38px,rgba(176,191,199,1) 39px),repeating-linear-gradient(-60deg,transparent,transparent 38px,rgba(176,191,199,1) 38px,rgba(176,191,199,1) 39px)}
+.hero-deco{position:absolute;right:-120px;top:50%;transform:translateY(-50%);opacity:.46;pointer-events:none;width:520px;height:auto;-webkit-mask-image:radial-gradient(ellipse 82% 74% at 52% 50%,black 12%,rgba(0,0,0,.6) 48%,transparent 76%);mask-image:radial-gradient(ellipse 82% 74% at 52% 50%,black 12%,rgba(0,0,0,.6) 48%,transparent 76%)}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:100px 48px 60px}
+
+/* SCROLL EXPAND HERO */
+.sh-bg{position:absolute;inset:0;z-index:0}
+.sh-media-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none}
+.sh-media{width:300px;height:400px;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 0 60px rgba(0,0,0,.5);transition:none}
+.sh-media img{width:100%;height:100%;object-fit:cover;display:block}
+.sh-media-ov{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.sh-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:100%;text-align:center;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 24px}
+.sh-t1,.sh-t2{font-family:'Russo One',sans-serif;font-size:clamp(26px,4.5vw,60px);color:var(--silver);white-space:nowrap;line-height:1.05}
+.sh-t2 .accent{color:var(--blue)}
+.sh-hint{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(176,191,199,.55);font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;animation:bob 2.2s ease infinite}
+.sh-content{position:absolute;inset:0;z-index:10;opacity:0;pointer-events:none;transition:opacity .7s ease;display:flex;align-items:center;background:linear-gradient(to right,rgba(6,12,30,.72) 55%,rgba(6,12,30,.1) 100%)}
+.sh-content.sh-vis{opacity:1;pointer-events:auto}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(12,80,157,.18);border:1px solid rgba(12,80,157,.45);border-radius:2px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-bottom:36px}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.hero-h1{font-family:'Russo One',sans-serif;font-size:clamp(50px,7.5vw,100px);line-height:.93;color:#fff;max-width:860px;margin-bottom:36px;letter-spacing:-.01em}
+.hero-h1 .accent{color:var(--blue)}
+.hero-sub{font-size:17px;color:var(--silver);max-width:520px;line-height:1.65;margin-bottom:52px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:80px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 34px;font-family:'Russo One',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:10px;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#0d5db3;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--silver);border:1px solid rgba(176,191,199,.28)}
+.btn-outline:hover{border-color:var(--silver);color:#fff}
+.hero-kpi{display:flex;gap:52px;padding-top:48px;border-top:1px solid rgba(176,191,199,.1);flex-wrap:wrap}
+.kpi-n{font-family:'Russo One',sans-serif;font-size:38px;color:var(--blue);line-height:1}
+.kpi-l{font-size:13px;color:var(--silver);margin-top:5px;letter-spacing:.03em}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(176,191,199,.5);animation:bob 2.2s ease infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* SHARED */
+.sec{padding:100px 0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.sec-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
+.sec-tag::before{content:'';width:22px;height:2px;background:var(--blue)}
+.sec-h{font-family:'Russo One',sans-serif;font-size:clamp(30px,3.8vw,50px);color:#fff;margin-bottom:14px}
+.sec-p{font-size:16px;color:var(--silver);max-width:540px;line-height:1.7;margin-bottom:60px}
+.stripe-top{position:relative}
+.stripe-top::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(12,80,157,.5),transparent)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-text p{font-size:16px;color:var(--silver);line-height:1.75;margin-bottom:18px}
+.about-text p strong{color:#fff}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.stat-box{background:rgba(10,20,50,.7);backdrop-filter:blur(8px);padding:36px 28px;border-left:3px solid var(--blue);border-radius:10px}
+.stat-box:nth-child(2n){background:rgba(12,80,157,.18)}
+.stat-n{font-family:'Russo One',sans-serif;font-size:50px;color:var(--blue);line-height:1;margin-bottom:6px}
+.stat-l{font-size:13px;color:var(--silver)}
+
+/* ABOUT FULL-BLEED */
+.about-fb{
+  position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;
+  background-image:url('images/istockphoto-2167761164-612x612.jpg');
+  background-size:cover;
+  background-position:center;
+  background-color:#04091a
+}
+.about-fb-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(4,9,26,.82) 0%,rgba(8,18,40,.68) 50%,rgba(4,9,26,.80) 100%)}
+.about-fb-grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:300px 300px}
+.about-fb-inner{position:relative;z-index:4;width:100%;padding:100px 0}
+
+/* SERVICES */
+.srv-bg{background:var(--navy)}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(12,80,157,.08)}
+.srv-card{background:#060c1e;padding:44px 36px 40px;position:relative;overflow:hidden;transition:background .35s,box-shadow .35s}
+.srv-card::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(12,80,157,.07) 0%,transparent 55%);opacity:0;transition:opacity .35s;pointer-events:none}
+.srv-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue) 0%,rgba(12,80,157,0) 100%);transform:scaleX(0);transform-origin:left;transition:transform .48s cubic-bezier(.25,.46,.45,.94)}
+.srv-card:hover{background:#070e22;box-shadow:inset 3px 0 0 var(--blue)}
+.srv-card:hover::before{opacity:1}
+.srv-card:hover::after{transform:scaleX(1)}
+.srv-num{font-family:'Russo One',sans-serif;font-size:54px;color:rgba(12,80,157,.1);position:absolute;top:12px;right:18px;line-height:1;pointer-events:none;user-select:none;transition:color .35s}
+.srv-card:hover .srv-num{color:rgba(12,80,157,.22)}
+.srv-icon-wrap{width:52px;height:52px;border:1px solid rgba(12,80,157,.3);display:flex;align-items:center;justify-content:center;margin-bottom:26px;background:rgba(12,80,157,.06);transition:border-color .3s,background .3s;flex-shrink:0}
+.srv-card:hover .srv-icon-wrap{border-color:var(--blue);background:rgba(12,80,157,.16)}
+.srv-icon{width:26px;height:26px;color:var(--blue);margin-bottom:0}
+.srv-name{font-family:'Russo One',sans-serif;font-size:17px;color:#fff;margin-bottom:10px}
+.srv-desc{font-size:13px;color:var(--silver);line-height:1.65}
+
+/* PRODUCTS */
+.car-wrap{overflow:hidden}
+.car-track{display:flex;gap:24px;transition:transform .45s cubic-bezier(.25,.46,.45,.94)}
+.prod-card{flex:0 0 calc(33.333% - 16px);background:var(--mid);border-radius:12px;overflow:hidden}
+.prod-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--navy),var(--dark));display:flex;align-items:center;justify-content:center;position:relative}
+.prod-badge{position:absolute;top:14px;right:14px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 10px;border-radius:1px}
+.prod-info{padding:22px}
+.prod-name{font-family:'Russo One',sans-serif;font-size:15px;color:#fff;margin-bottom:7px}
+.prod-desc{font-size:13px;color:var(--silver);line-height:1.6}
+.car-controls{display:flex;align-items:center;gap:10px;margin-top:36px}
+.car-btn{width:46px;height:46px;border:1px solid rgba(176,191,199,.2);background:transparent;color:var(--silver);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .2s}
+.car-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(12,80,157,.1)}
+.car-dots{display:flex;gap:7px}
+.dot{width:22px;height:3px;background:rgba(176,191,199,.18);border-radius:2px;cursor:pointer;transition:all .25s}
+.dot.on{background:var(--blue);width:38px}
+
+/* ADV */
+.adv-bg{background:var(--navy)}
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(12,80,157,.08)}
+.adv-card{background:#060c1e;padding:40px 34px;position:relative;transition:background .3s,box-shadow .3s;overflow:hidden}
+.adv-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),rgba(12,80,157,0));transform:scaleX(0);transform-origin:left;transition:transform .48s cubic-bezier(.25,.46,.45,.94)}
+.adv-card:hover{background:#070e22;box-shadow:inset 3px 0 0 rgba(12,80,157,.7)}
+.adv-card:hover::after{transform:scaleX(1)}
+.adv-ghost{font-family:'Russo One',sans-serif;font-size:68px;color:rgba(12,80,157,.11);position:absolute;top:14px;right:18px;line-height:1;user-select:none;transition:color .3s}
+.adv-card:hover .adv-ghost{color:rgba(12,80,157,.24)}
+.adv-icon{width:38px;height:38px;color:var(--blue);margin-bottom:18px}
+.adv-name{font-family:'Russo One',sans-serif;font-size:16px;color:#fff;margin-bottom:9px}
+.adv-desc{font-size:13px;color:var(--silver);line-height:1.65}
+
+/* CALC */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.calc-form{background:var(--mid);padding:44px;border-top:3px solid var(--blue)}
+.f-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:8px}
+.f-ctrl{width:100%;background:rgba(8,15,34,.8);border:1px solid rgba(176,191,199,.18);color:#fff;padding:13px 16px;font-family:'PT Sans',sans-serif;font-size:14px;border-radius:8px;outline:none;transition:border-color .2s;-webkit-appearance:none;margin-bottom:22px}
+.f-ctrl:focus{border-color:var(--blue)}
+.f-ctrl option{background:var(--navy)}
+.calc-result{background:rgba(8,15,34,.9);border:1px solid rgba(12,80,157,.4);padding:28px;border-radius:2px;margin-top:8px;display:none}
+.calc-result.show{display:block}
+.cr-lbl{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--silver);margin-bottom:10px}
+.cr-price{font-family:'Russo One',sans-serif;font-size:38px;color:var(--blue);margin-bottom:6px}
+.cr-note{font-size:12px;color:rgba(176,191,199,.5);line-height:1.6}
+.mat-list{display:flex;flex-direction:column;gap:2px;margin-top:28px}
+.mat-item{display:flex;gap:18px;background:var(--mid);padding:18px 22px;align-items:flex-start}
+.mat-ab{font-family:'Russo One',sans-serif;font-size:17px;color:var(--blue);min-width:36px;padding-top:2px}
+.mat-nm{font-size:14px;color:#fff;font-weight:700;margin-bottom:3px}
+.mat-ds{font-size:12px;color:var(--silver)}
+
+/* PARTNERS */
+.pts-bg{background:var(--navy);padding:72px 0;overflow:hidden}
+.pts-strip{display:flex;animation:scroll-l 26s linear infinite;width:max-content}
+.pts-strip:hover{animation-play-state:paused}
+@keyframes scroll-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.pt-logo{width:196px;height:78px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(176,191,199,.09);margin-right:2px;background:rgba(8,15,34,.3);font-family:'Russo One',sans-serif;font-size:12px;color:rgba(176,191,199,.38);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;transition:all .3s}
+.pt-logo:hover{border-color:rgba(12,80,157,.4);color:var(--silver);background:rgba(12,80,157,.08)}
+
+/* CONTACTS */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.ct-item{display:flex;align-items:flex-start;gap:18px;margin-bottom:32px}
+.ct-ico{width:44px;height:44px;background:rgba(12,80,157,.14);border:1px solid rgba(12,80,157,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue);border-radius:2px}
+.ct-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:5px}
+.ct-val{font-size:16px;color:#fff;text-decoration:none;transition:color .2s}
+a.ct-val:hover{color:var(--blue)}
+.ct-form{background:var(--mid);padding:44px;border-top:3px solid var(--blue)}
+.ct-form-title{font-family:'Russo One',sans-serif;font-size:20px;color:#fff;margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+textarea.f-ctrl{resize:vertical;min-height:110px}
+.form-sub{width:100%;background:var(--blue);color:#fff;border:none;padding:16px;font-family:'Russo One',sans-serif;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:10px;transition:background .2s;margin-top:4px}
+.form-sub:hover{background:#0d5db3}
+.cert-box{margin-top:44px;padding:26px;background:var(--mid);border-left:3px solid var(--blue)}
+
+/* FOOTER */
+footer{background:#060d1c;padding:52px 0 28px;border-top:1px solid rgba(176,191,199,.05)}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:44px}
+.ft-brand{font-family:'Russo One',sans-serif;font-size:19px;color:#fff;margin-bottom:10px}
+.ft-brand em{color:var(--blue);font-style:normal}
+.ft-tag{font-size:13px;color:var(--silver);line-height:1.6;max-width:260px}
+.ft-col-h{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-bottom:18px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:11px}
+.ft-links a{font-size:13px;color:rgba(176,191,199,.55);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:#fff}
+.ft-bottom{border-top:1px solid rgba(176,191,199,.05);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-copy{font-size:12px;color:rgba(176,191,199,.3)}
+.ft-cert{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:rgba(176,191,199,.38);background:rgba(12,80,157,.07);border:1px solid rgba(12,80,157,.18);padding:5px 13px;border-radius:2px}
+
+/* GALLERY CAROUSEL */
+.gl-wrap{position:relative;overflow:hidden;background:#060d1c}
+.gl-track{display:flex;transition:transform .55s cubic-bezier(.25,.46,.45,.94)}
+.gl-slide{flex:0 0 100%;height:70vh;min-height:460px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gl-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,13,28,.92) 0%,rgba(6,13,28,.3) 60%,rgba(6,13,28,.15) 100%)}
+.gl-content{position:relative;z-index:2;text-align:center;padding:0 24px}
+.gl-label{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.gl-title{font-family:'Russo One',sans-serif;font-size:clamp(26px,4vw,44px);color:#fff;margin-bottom:12px}
+.gl-sub{font-size:15px;color:var(--silver);max-width:480px;margin:0 auto}
+.gl-ph{font-size:11px;color:rgba(176,191,199,.3);margin-top:20px;letter-spacing:.1em;text-transform:uppercase}
+.gl-nav{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;z-index:5}
+.gl-arrow{width:48px;height:48px;border:1px solid rgba(176,191,199,.25);background:rgba(8,15,34,.5);color:var(--silver);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .2s;backdrop-filter:blur(8px)}
+.gl-arrow:hover{border-color:var(--blue);color:#fff;background:rgba(12,80,157,.3)}
+.gl-dots{display:flex;gap:7px}
+.gl-dot{width:6px;height:6px;border-radius:50%;background:rgba(176,191,199,.3);cursor:pointer;transition:all .25s}
+.gl-dot.on{background:var(--blue);width:22px;border-radius:3px}
+
+/* PARTNERS CAROUSEL */
+.pt-car-wrap{overflow:hidden;margin-top:44px}
+.pt-car-track{display:flex;gap:16px;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.pt-card{flex:0 0 calc(25% - 12px);height:80px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(176,191,199,.1);background:rgba(8,15,34,.4);font-family:'Russo One',sans-serif;font-size:12px;color:rgba(176,191,199,.45);letter-spacing:.1em;text-transform:uppercase;border-radius:10px;transition:all .3s}
+.pt-card:hover{border-color:rgba(12,80,157,.5);color:var(--silver);background:rgba(12,80,157,.1)}
+
+/* FADE */
+.fu{transition:opacity .65s ease,transform .65s ease}
+.fu.vis{opacity:1;transform:translateY(0)}
+.fu:nth-child(2){transition-delay:.1s}
+.fu:nth-child(3){transition-delay:.2s}
+.fu:nth-child(4){transition-delay:.3s}
+.fu:nth-child(5){transition-delay:.4s}
+.fu:nth-child(6){transition-delay:.5s}
+
+/* MOBILE */
+@media(max-width:900px){
+  .nav{padding:16px 24px}
+  .nav.stuck{padding:12px 24px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .nav-brand img{height:36px}
+  .hero-inner{padding:100px 24px 60px}
+  .hero-h1{font-size:clamp(36px,6vw,72px)}
+  .hero-kpi{gap:28px}
+  .wrap{padding:0 24px}
+  .sec{padding:70px 0}
+  .about-grid,.calc-grid,.ct-grid{grid-template-columns:1fr;gap:44px}
+  .srv-grid,.adv-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .ft-grid{grid-template-columns:1fr;gap:32px}
+  .prod-card{flex:0 0 calc(85% - 12px)}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .nav-brand img{height:32px}
+  .hero-h1{font-size:clamp(32px,9.5vw,56px)}
+  .hero-actions{flex-direction:column;align-items:flex-start}
+  .hero-kpi{grid-template-columns:1fr 1fr;gap:16px}
+}
+</style>
+</head>
+<body>
+<a href="#hero" class="skip-link">Перейти к содержимому</a>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob-menu">
+  <a href="#about" onclick="closeMob()">О компании</a>
+  <a href="#services" onclick="closeMob()">Услуги</a>
+  <a href="#products" onclick="closeMob()">Продукция</a>
+  <a href="#advantages" onclick="closeMob()">Преимущества</a>
+  <a href="#calculator" onclick="closeMob()">Калькулятор</a>
+  <a href="#contacts" onclick="closeMob()" style="color:var(--blue)">Связаться</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand" style="text-decoration:none">
+    <img src="Logo/Artboard 1 copy.png" alt="ПроПластФорм" style="height:44px;display:block;border-radius:8px;box-shadow:0 0 0 1px rgba(12,80,157,.3),0 4px 18px rgba(0,0,0,.55)">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">О компании</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#products">Продукция</a></li>
+    <li><a href="#advantages">Преимущества</a></li>
+    <li><a href="#calculator">Калькулятор</a></li>
+    <li><a href="#contacts" class="nav-btn">Связаться</a></li>
+  </ul>
+  <div class="nav-ham" onclick="toggleMob()" id="ham">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+
+  <!-- Фон (затухает при скролле) -->
+  <div class="sh-bg" id="sh-bg">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <img src="Logo/Artboard 1 copy.png" class="hero-deco" alt="">
+  </div>
+
+  <!-- Расширяющееся фото завода -->
+  <div class="sh-media-wrap">
+    <div class="sh-media" id="sh-media">
+      <img src="images/istockphoto-2167761164-612x612.jpg" alt="Производство ПроПластФорм">
+      <div class="sh-media-ov" id="sh-media-ov"></div>
+    </div>
+  </div>
+
+  <!-- Заголовок-разлёт -->
+  <div class="sh-title">
+    <div id="sh-t1" class="sh-t1">Ваш логотип —</div>
+    <div id="sh-t2" class="sh-t2"><span class="accent">в каждом</span> изделии</div>
+  </div>
+
+  <!-- Подсказка прокрутки -->
+  <div class="sh-hint" id="sh-hint">
+    Прокрутите
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+  </div>
+
+  <!-- Контент (появляется после раскрытия) -->
+  <div class="sh-content" id="sh-content">
+    <div class="hero-inner">
+      <div class="hero-tag">Производство · Махачкала · СКФО</div>
+      <h1 class="hero-h1">
+        Ваш логотип —<br>
+        <span class="accent">в каждом</span><br>
+        изделии
+      </h1>
+      <p class="hero-sub">
+        Собственный завод в Дагестане. Литьё под давлением, пресс-формы и брендирование — под ключ.
+      </p>
+      <div class="hero-actions">
+        <a href="#calculator" class="btn btn-primary">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-3M13 3h8m0 0v8m0-8L11 13"/></svg>
+          Рассчитать стоимость
+        </a>
+        <a href="#products" class="btn btn-outline">Наша продукция</a>
+      </div>
+      <div class="hero-kpi">
+        <div><div class="kpi-n">7+</div><div class="kpi-l">лет на рынке</div></div>
+        <div><div class="kpi-n">200+</div><div class="kpi-l">проектов</div></div>
+        <div><div class="kpi-n">3</div><div class="kpi-l">материала</div></div>
+        <div><div class="kpi-n">20+</div><div class="kpi-l">регионов поставок</div></div>
+      </div>
+    </div>
+    <div class="hero-scroll" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%)">
+      <span>Прокрутить</span>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </div>
+
+</section>
+
+<!-- ГАЛЕРЕЯ -->
+<section id="gallery" class="gl-wrap">
+  <div class="gl-track" id="gl-track">
+
+    <div class="gl-slide" style="background:linear-gradient(135deg,#060d1c 0%,#0e2248 50%,#060d1c 100%)">
+      <div class="gl-overlay"></div>
+      <div style="position:absolute;inset:0;opacity:.08;background-image:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(176,191,199,1) 30px,rgba(176,191,199,1) 31px),repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(176,191,199,1) 30px,rgba(176,191,199,1) 31px)"></div>
+      <div class="gl-content">
+        <div class="gl-label">— Производство</div>
+        <div class="gl-title">Собственный завод<br>в Махачкале</div>
+        <div class="gl-sub">Термопластавтоматы, пресс-формы, контроль качества — всё на одной площадке</div>
+        <div class="gl-ph">[ Фото цеха ]</div>
+      </div>
+    </div>
+
+    <div class="gl-slide" style="background:linear-gradient(135deg,#08193a 0%,#0C509D 70%,#08193a 100%)">
+      <div class="gl-overlay"></div>
+      <div class="gl-content">
+        <div class="gl-label">— Продукция</div>
+        <div class="gl-title">Контейнеры, крышки,<br>стаканы, канистры</div>
+        <div class="gl-sub">Полипропилен, полиэтилен, полистирол — любая форма и объём</div>
+        <div class="gl-ph">[ Фото продукции ]</div>
+      </div>
+    </div>
+
+    <div class="gl-slide" style="background:linear-gradient(135deg,#060d1c 0%,#1F3060 60%,#060d1c 100%)">
+      <div class="gl-overlay"></div>
+      <div class="gl-content">
+        <div class="gl-label">— Брендирование</div>
+        <div class="gl-title">Ваш логотип —<br>прямо при литье</div>
+        <div class="gl-sub">Маркировка вносится в пресс-форму — не стирается и не смывается</div>
+        <div class="gl-ph">[ Фото брендированной упаковки ]</div>
+      </div>
+    </div>
+
+    <div class="gl-slide" style="background:linear-gradient(135deg,#040a18 0%,#0d1e40 50%,#040a18 100%)">
+      <div class="gl-overlay"></div>
+      <div class="gl-content">
+        <div class="gl-label">— Оборудование</div>
+        <div class="gl-title">Современные<br>термопластавтоматы</div>
+        <div class="gl-sub">Точное литьё, стабильное качество партии от 500 до 500 000 штук</div>
+        <div class="gl-ph">[ Фото оборудования ]</div>
+      </div>
+    </div>
+
+    <div class="gl-slide" style="background:linear-gradient(135deg,#060d1c 0%,#0a2040 55%,#060d1c 100%)">
+      <div class="gl-overlay"></div>
+      <div class="gl-content">
+        <div class="gl-label">— Клиенты</div>
+        <div class="gl-title">Партнёры по всему<br>Северному Кавказу</div>
+        <div class="gl-sub">Пищевые производства, торговые сети, дистрибьюторы — доверяют нам годами</div>
+        <div class="gl-ph">[ Фото команды / клиентов ]</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="gl-nav">
+    <button class="gl-arrow" onclick="glMove(-1)">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="gl-dots" id="gl-dots">
+      <div class="gl-dot on" onclick="glGo(0)"></div>
+      <div class="gl-dot" onclick="glGo(1)"></div>
+      <div class="gl-dot" onclick="glGo(2)"></div>
+      <div class="gl-dot" onclick="glGo(3)"></div>
+      <div class="gl-dot" onclick="glGo(4)"></div>
+    </div>
+    <button class="gl-arrow" onclick="glMove(1)">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- О КОМПАНИИ — полноэкранный блок с фоном завода -->
+<!-- ФОТО: добавьте style="background-image:url('factory.jpg');background-size:cover;background-position:center" к тегу section -->
+<section class="about-fb stripe-top" id="about">
+  <div class="about-fb-overlay"></div>
+  <div class="about-fb-grain"></div>
+  <div style="position:absolute;top:0;left:0;width:500px;height:500px;background:radial-gradient(circle at 0 0,rgba(12,80,157,.2) 0%,transparent 65%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:0;right:0;width:600px;height:600px;background:radial-gradient(circle at 100% 100%,rgba(12,80,157,.15) 0%,transparent 60%);pointer-events:none"></div>
+  <div class="about-fb-inner">
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <div class="sec-tag">О компании</div>
+          <h2 class="sec-h">Собственное производство<br>в Дагестане</h2>
+          <p style="font-size:17px;color:var(--silver);line-height:1.8;margin-bottom:20px"><strong style="color:#fff">ПроПластФорм</strong> — дагестанский производитель пластиковой упаковки и технических изделий методом литья под давлением. Работаем с пищевыми производствами и торговыми компаниями по всему СКФО и России.</p>
+          <p style="font-size:17px;color:var(--silver);line-height:1.8;margin-bottom:20px">Выпускаем контейнеры, крышки, стаканы, канистры и нестандартные изделия по чертежам заказчика. Вся продукция для пищевого контакта сертифицирована по ТР ТС 005/2011.</p>
+          <p style="font-size:17px;color:var(--silver);line-height:1.8">Проектируем и изготавливаем пресс-формы. Ваш логотип вносим прямо в форму — без наклеек, нанесение не стирается и не портится.</p>
+          <div style="margin-top:36px">
+            <a href="#contacts" class="btn btn-primary">Обсудить заказ</a>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-n">7+</div><div class="stat-l">лет на рынке</div></div>
+          <div class="stat-box"><div class="stat-n">200+</div><div class="stat-l">проектов</div></div>
+          <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">материала (ПП, ПЭ, ПС)</div></div>
+          <div class="stat-box"><div class="stat-n">20+</div><div class="stat-l">регионов поставок</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- УСЛУГИ -->
+<section class="sec srv-bg stripe-top" id="services">
+  <div class="wrap">
+    <div class="sec-tag">Что мы делаем</div>
+    <h2 class="sec-h">Услуги</h2>
+    <p class="sec-p">Полный цикл — от проектирования пресс-формы до готовой брендированной продукции.</p>
+    <div class="srv-grid">
+      <div class="srv-card fu">
+        <div class="srv-num">01</div>
+        <div class="srv-icon-wrap"><svg class="srv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/></svg></div>
+        <div class="srv-name">Литьё под давлением</div>
+        <div class="srv-desc">Производство на собственных термопластавтоматах. Материалы ПП, ПЭ, ПС. Партии от 500 шт.</div>
+      </div>
+      <div class="srv-card fu">
+        <div class="srv-num">02</div>
+        <div class="srv-icon-wrap"><svg class="srv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg></div>
+        <div class="srv-name">Пресс-формы под ключ</div>
+        <div class="srv-desc">Проектирование и изготовление пресс-форм по ТЗ заказчика. Работаем с чертежами и 3D-моделями.</div>
+      </div>
+      <div class="srv-card fu">
+        <div class="srv-num">03</div>
+        <div class="srv-icon-wrap"><svg class="srv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859M12 3v8.25m0 0l-3-3m3 3l3-3"/></svg></div>
+        <div class="srv-name">Пищевая упаковка</div>
+        <div class="srv-desc">Контейнеры, крышки, стаканы для продуктов питания. Сертификат ТР ТС 005/2011.</div>
+      </div>
+      <div class="srv-card fu">
+        <div class="srv-num">04</div>
+        <div class="srv-icon-wrap"><svg class="srv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path d="M6 6h.008v.008H6V6z"/></svg></div>
+        <div class="srv-name">Брендирование</div>
+        <div class="srv-desc">Логотип и дизайн заказчика вносим в пресс-форму. Маркировка неотделима от изделия.</div>
+      </div>
+      <div class="srv-card fu">
+        <div class="srv-num">05</div>
+        <div class="srv-icon-wrap"><svg class="srv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"/></svg></div>
+        <div class="srv-name">Нестандартные изделия</div>
+        <div class="srv-desc">Технические детали, нестандартная упаковка и компоненты по индивидуальным чертежам.</div>
+      </div>
+      <div class="srv-card fu" style="background:rgba(12,80,157,.12)">
+        <div class="srv-num" style="color:rgba(255,255,255,.12)">06</div>
+        <div class="srv-icon-wrap" style="border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.07)"><svg class="srv-icon" style="color:#fff" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div>
+        <div class="srv-name">Консультация и расчёт</div>
+        <div class="srv-desc">Поможем подобрать материал, рассчитаем стоимость и сроки. Работаем с тендерами и долгосрочными контрактами.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРОДУКЦИЯ -->
+<section class="sec" id="products" style="background:var(--dark)">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;flex-wrap:wrap;gap:20px">
+      <div>
+        <div class="sec-tag">Каталог</div>
+        <h2 class="sec-h" style="margin-bottom:0">Продукция</h2>
+      </div>
+      <div class="car-controls" style="margin-top:0">
+        <button class="car-btn" onclick="carMove(-1)">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="car-btn" onclick="carMove(1)">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="car-wrap">
+      <div class="car-track" id="car-track">
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#0f2448,#1F3060)">
+            <div class="prod-badge">ПП</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <rect x="14" y="28" width="44" height="32" rx="3"/>
+              <path d="M19 28L24 16H48L53 28"/>
+              <path d="M14 38Q36 43 58 38"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Контейнеры пищевые</div>
+            <div class="prod-desc">Прямоугольные и круглые, 250 мл — 5 л. Полипропилен, пищевой стандарт.</div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#091830,#0c2d5a)">
+            <div class="prod-badge">ПП</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <ellipse cx="36" cy="36" rx="26" ry="8"/>
+              <ellipse cx="36" cy="34" rx="26" ry="8"/>
+              <path d="M10 34Q10 28 36 28Q62 28 62 34"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Крышки и колпачки</div>
+            <div class="prod-desc">Крышки к контейнерам, флип-топ, крышки с уплотнением для герметичной упаковки.</div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#0d1832,#0a2550)">
+            <div class="prod-badge">ПС</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <path d="M26 20L24 60Q36 64 48 60L46 20Q36 15 26 20Z"/>
+              <ellipse cx="36" cy="20" rx="10" ry="3.5"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Стаканы и стопки</div>
+            <div class="prod-desc">Полистирол прозрачный, 100–500 мл. Одноразовые и многоразовые.</div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#081525,#0c2f5d)">
+            <div class="prod-badge">ПЭ</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <rect x="20" y="18" width="32" height="44" rx="3"/>
+              <rect x="27" y="13" width="18" height="8" rx="2"/>
+              <path d="M20 32L52 32M20 46L52 46"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Канистры и ёмкости</div>
+            <div class="prod-desc">1–20 л для ГСМ, химии, воды. Полиэтилен высокой плотности, с ручкой и крышкой.</div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#0a1c3a,#152550)">
+            <div class="prod-badge">ПП/ПЭ</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <circle cx="36" cy="36" r="20"/>
+              <circle cx="36" cy="36" r="12"/>
+              <circle cx="36" cy="36" r="4"/>
+              <path d="M36 16L36 24M36 48L36 56M16 36L24 36M48 36L56 36"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Технические детали</div>
+            <div class="prod-desc">Корпуса, втулки, кронштейны. Точное литьё по 3D-моделям заказчика.</div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,#0c1e3d,#0e3568)">
+            <div class="prod-badge">ПП</div>
+            <svg width="72" height="72" fill="none" viewBox="0 0 72 72" stroke="rgba(176,191,199,0.35)" stroke-width="1.2">
+              <rect x="16" y="28" width="40" height="28" rx="2"/>
+              <path d="M23 28L23 20L49 20L49 28"/>
+              <rect x="30" y="20" width="12" height="10" rx="1"/>
+            </svg>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Нестандартная упаковка</div>
+            <div class="prod-desc">По ТЗ заказчика: любые форма, цвет, маркировка. Партии от 500 шт.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="car-dots" id="car-dots" style="margin-top:28px">
+      <div class="dot on" onclick="carGo(0)"></div>
+      <div class="dot" onclick="carGo(1)"></div>
+      <div class="dot" onclick="carGo(2)"></div>
+      <div class="dot" onclick="carGo(3)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРЕИМУЩЕСТВА -->
+<section class="sec adv-bg stripe-top" id="advantages">
+  <div class="wrap">
+    <div class="sec-tag">Почему мы</div>
+    <h2 class="sec-h">Преимущества</h2>
+    <p class="sec-p">Собственное производство, сертификация и гибкий подход к каждому клиенту.</p>
+    <div class="adv-grid">
+      <div class="adv-card fu"><div class="adv-ghost">01</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg><div class="adv-name">Собственное производство</div><div class="adv-desc">Весь цикл от сырья до готового изделия на нашем заводе в Махачкале. Никаких посредников.</div></div>
+      <div class="adv-card fu"><div class="adv-ghost">02</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg><div class="adv-name">Сертификат ТР ТС 005/2011</div><div class="adv-desc">Продукция для пищевого контакта сертифицирована по Техрегламенту Таможенного союза.</div></div>
+      <div class="adv-card fu"><div class="adv-ghost">03</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path d="M6 6h.008v.008H6V6z"/></svg><div class="adv-name">Брендинг при литье</div><div class="adv-desc">Ваш логотип в пресс-форме. Маркировка неотделима от изделия, не стирается и не смывается.</div></div>
+      <div class="adv-card fu"><div class="adv-ghost">04</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div class="adv-name">Сроки без срывов</div><div class="adv-desc">Серийное производство стартует от 7 рабочих дней. Для крупных партий — согласованный план.</div></div>
+      <div class="adv-card fu"><div class="adv-ghost">05</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg><div class="adv-name">Охват СКФО и России</div><div class="adv-desc">Отгружаем в Дагестан, Чечню, Ставрополь, Краснодар и другие регионы России.</div></div>
+      <div class="adv-card fu"><div class="adv-ghost">06</div><svg class="adv-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg><div class="adv-name">Гибкое ценообразование</div><div class="adv-desc">Оптовые скидки от объёма. Работаем с отсрочкой платежа для постоянных клиентов.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- КАЛЬКУЛЯТОР -->
+<section class="sec" id="calculator" style="background:var(--dark)">
+  <div class="wrap">
+    <div class="calc-grid">
+      <div>
+        <div class="sec-tag">Стоимость</div>
+        <h2 class="sec-h">Рассчитайте цену партии</h2>
+        <p style="font-size:16px;color:var(--silver);line-height:1.7;margin-bottom:0">Укажите параметры — получите ориентировочную стоимость. Точный расчёт менеджер пришлёт после уточнения ТЗ.</p>
+        <div class="mat-list">
+          <div class="mat-item"><div class="mat-ab">ПП</div><div><div class="mat-nm">Полипропилен</div><div class="mat-ds">Пищевая упаковка, контейнеры, крышки. Термостойкость до +120°C.</div></div></div>
+          <div class="mat-item"><div class="mat-ab">ПЭ</div><div><div class="mat-nm">Полиэтилен</div><div class="mat-ds">Канистры, ёмкости, технические изделия. Химически инертен.</div></div></div>
+          <div class="mat-item"><div class="mat-ab">ПС</div><div><div class="mat-nm">Полистирол</div><div class="mat-ds">Стаканы, одноразовая посуда, прозрачные изделия.</div></div></div>
+        </div>
+      </div>
+      <div class="calc-form">
+        <h3 style="font-family:'Russo One',sans-serif;font-size:19px;color:#fff;margin-bottom:28px">Параметры заказа</h3>
+        <label class="f-lbl">Тип изделия</label>
+        <select class="f-ctrl" id="c-type" onchange="calc()">
+          <option value="">— Выберите —</option>
+          <option value="1.2">Контейнер пищевой</option>
+          <option value="0.8">Крышка / колпачок</option>
+          <option value="0.9">Стакан</option>
+          <option value="1.4">Канистра</option>
+          <option value="1.6">Нестандартное изделие</option>
+        </select>
+        <label class="f-lbl">Материал</label>
+        <select class="f-ctrl" id="c-mat" onchange="calc()">
+          <option value="">— Выберите —</option>
+          <option value="85">Полипропилен (ПП)</option>
+          <option value="78">Полиэтилен (ПЭ)</option>
+          <option value="92">Полистирол (ПС)</option>
+        </select>
+        <label class="f-lbl">Масса изделия (грамм)</label>
+        <input type="number" class="f-ctrl" id="c-wt" placeholder="Например: 30" min="1" oninput="calc()">
+        <label class="f-lbl">Объём партии (штук)</label>
+        <input type="number" class="f-ctrl" id="c-qty" placeholder="Например: 10000" min="500" step="500" oninput="calc()">
+        <div class="calc-result" id="c-res">
+          <div class="cr-lbl">Ориентировочная стоимость партии</div>
+          <div class="cr-price" id="c-price"></div>
+          <div class="cr-note">Точная цена уточняется после согласования ТЗ. Стоимость пресс-формы — отдельно.</div>
+          <a href="#contacts" class="btn btn-primary" style="margin-top:20px;font-size:12px;padding:12px 22px">Получить точный расчёт</a>
+        </div>
+        <p style="font-size:11px;color:rgba(176,191,199,.35);margin-top:16px;line-height:1.6">* Расчёт ориентировочный. Итоговая цена зависит от сложности, цвета и требований к упаковке.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПАРТНЁРЫ -->
+<section class="pts-bg stripe-top" id="partners" style="padding:72px 0;overflow:hidden">
+  <div class="wrap" style="margin-bottom:44px">
+    <div class="sec-tag">Нам доверяют</div>
+    <h2 class="sec-h">Партнёры и клиенты</h2>
+  </div>
+  <div style="overflow:hidden">
+    <div class="pts-strip">
+      <div class="pt-logo">Агрокомплекс</div>
+      <div class="pt-logo">ДагПрод</div>
+      <div class="pt-logo">МАО Торг</div>
+      <div class="pt-logo">ЮгРетейл</div>
+      <div class="pt-logo">КавкАгро</div>
+      <div class="pt-logo">РосПродукт</div>
+      <div class="pt-logo">СевКавТорг</div>
+      <div class="pt-logo">МахачПак</div>
+      <div class="pt-logo">Агрокомплекс</div>
+      <div class="pt-logo">ДагПрод</div>
+      <div class="pt-logo">МАО Торг</div>
+      <div class="pt-logo">ЮгРетейл</div>
+      <div class="pt-logo">КавкАгро</div>
+      <div class="pt-logo">РосПродукт</div>
+      <div class="pt-logo">СевКавТорг</div>
+      <div class="pt-logo">МахачПак</div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section class="sec" id="contacts" style="background:var(--dark)">
+  <div class="wrap">
+    <div class="sec-tag">Связаться</div>
+    <h2 class="sec-h">Контакты</h2>
+    <p class="sec-p">Готовы обсудить ваш проект. Ответим в течение рабочего дня.</p>
+    <div class="ct-grid">
+      <div>
+        <div class="ct-item">
+          <div class="ct-ico"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div>
+          <div><div class="ct-lbl">Телефон</div><a href="tel:+78001234567" class="ct-val">+7 (800) 123-45-67</a></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-ico"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div>
+          <div><div class="ct-lbl">E-mail</div><a href="mailto:info@proplastform.ru" class="ct-val">info@proplastform.ru</a></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+          <div><div class="ct-lbl">WhatsApp</div><a href="https://wa.me/78001234567" class="ct-val">Написать в WhatsApp</a></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-ico"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div>
+          <div><div class="ct-lbl">Адрес</div><div class="ct-val" style="font-size:15px">г. Махачкала, Республика Дагестан</div></div>
+        </div>
+        <div class="cert-box">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:12px">Сертификация</div>
+          <div style="font-size:15px;color:#fff;margin-bottom:7px">ТР ТС 005/2011</div>
+          <div style="font-size:13px;color:var(--silver);line-height:1.6">Технический регламент Таможенного союза «О безопасности упаковки». Продукция для пищевого контакта.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ct-form" id="ct-form-wrap">
+          <div class="ct-form-title">Оставить заявку</div>
+          <div class="form-row">
+            <div><label class="f-lbl">Имя *</label><input type="text" class="f-ctrl" id="fn" placeholder="Иван Петров"></div>
+            <div><label class="f-lbl">Телефон *</label><input type="tel" class="f-ctrl" id="fp" placeholder="+7 (900) 000-00-00"></div>
+          </div>
+          <label class="f-lbl">Компания</label>
+          <input type="text" class="f-ctrl" id="fc" placeholder="ООО «Ваша компания»">
+          <label class="f-lbl">Комментарий</label>
+          <textarea class="f-ctrl" id="fm" rows="4" placeholder="Материал, изделие, объём партии..."></textarea>
+          <button type="button" class="form-sub" onclick="sendForm()">Отправить заявку</button>
+          <p style="font-size:11px;color:rgba(176,191,199,.3);margin-top:14px;line-height:1.6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand">ПРО<em>ПЛАСТ</em>ФОРМ</div>
+        <div class="ft-tag">Производство изделий из пластмасс методом литья под давлением. Махачкала, Дагестан.</div>
+      </div>
+      <div>
+        <div class="ft-col-h">Разделы</div>
+        <ul class="ft-links">
+          <li><a href="#about">О компании</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#products">Продукция</a></li>
+          <li><a href="#advantages">Преимущества</a></li>
+          <li><a href="#calculator">Калькулятор</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Контакты</div>
+        <ul class="ft-links">
+          <li><a href="tel:+78001234567">+7 (800) 123-45-67</a></li>
+          <li><a href="mailto:info@proplastform.ru">info@proplastform.ru</a></li>
+          <li><a href="#contacts">г. Махачкала</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 2024 ПроПластФорм. Все права защищены.</div>
+      <div class="ft-cert">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        Сертификат ТР ТС 005/2011
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('stuck',scrollY>60)
+})
+
+// Mobile menu
+function toggleMob(){document.getElementById('mob-menu').classList.toggle('open')}
+function closeMob(){document.getElementById('mob-menu').classList.remove('open')}
+
+// Fade on scroll — set initial hidden state via JS so screenshots without JS show content
+const fus=document.querySelectorAll('.fu')
+fus.forEach(el=>{el.style.opacity='0';el.style.transform='translateY(28px)'})
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.opacity='';e.target.style.transform='';e.target.classList.add('vis')}
+}),{threshold:0,rootMargin:'0px 0px 220px 0px'})
+fus.forEach(el=>obs.observe(el))
+
+// Gallery carousel
+let glIdx=0,glTotal=5,glTimer
+function glMove(d){glIdx=(glIdx+d+glTotal)%glTotal;glRender()}
+function glGo(i){glIdx=i;glRender()}
+function glRender(){
+  document.getElementById('gl-track').style.transform=`translateX(-${glIdx*100}%)`
+  document.querySelectorAll('.gl-dot').forEach((d,i)=>d.classList.toggle('on',i===glIdx))
+}
+function glStart(){glTimer=setInterval(()=>glMove(1),4500)}
+function glStop(){clearInterval(glTimer)}
+const glEl=document.getElementById('gl-track')
+if(glEl){glEl.addEventListener('mouseenter',glStop);glEl.addEventListener('mouseleave',glStart);glStart()}
+
+// Partners carousel
+let ptIdx=0
+const ptPer=()=>window.innerWidth<600?2:window.innerWidth<900?3:4
+function ptMove(d){const max=8-ptPer();ptIdx=Math.max(0,Math.min(ptIdx+d,max));ptRender()}
+function ptGo(i){ptIdx=i*ptPer();ptRender()}
+function ptRender(){
+  const track=document.getElementById('pt-track')
+  if(!track)return
+  const w=track.children[0].offsetWidth+16
+  track.style.transform=`translateX(-${ptIdx*w}px)`
+  document.querySelectorAll('#pt-dots .dot').forEach((d,i)=>d.classList.toggle('on',i===Math.floor(ptIdx/ptPer())))
+}
+window.addEventListener('resize',()=>{ptIdx=0;ptRender()})
+
+// Carousel
+let carIdx=0
+const carPer=()=>window.innerWidth<768?1:window.innerWidth<1100?2:3
+function carMove(d){
+  const max=6-carPer()
+  carIdx=Math.max(0,Math.min(carIdx+d,max))
+  carRender()
+}
+function carGo(i){carIdx=i;carRender()}
+function carRender(){
+  const track=document.getElementById('car-track')
+  const w=track.children[0].offsetWidth+24
+  track.style.transform=`translateX(-${carIdx*w}px)`
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===carIdx))
+}
+window.addEventListener('resize',()=>{carIdx=Math.min(carIdx,6-carPer());carRender()})
+
+// Calculator
+function calc(){
+  const type=parseFloat(document.getElementById('c-type').value)||0
+  const mat=parseFloat(document.getElementById('c-mat').value)||0
+  const wt=parseFloat(document.getElementById('c-wt').value)||0
+  const qty=parseFloat(document.getElementById('c-qty').value)||0
+  const res=document.getElementById('c-res')
+  if(!type||!mat||wt<1||qty<500){res.classList.remove('show');return}
+  const base=wt/1000*mat*type*qty
+  const disc=qty>=50000?.15:qty>=20000?.10:qty>=10000?.05:0
+  const total=base*(1-disc)
+  document.getElementById('c-price').textContent=new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:0}).format(total)
+  res.classList.add('show')
+}
+
+// Scroll Expand Hero
+(function(){
+  let p=0,expanded=false,show=false,tY=0;
+  const mob=()=>window.innerWidth<768;
+  const bg=document.getElementById('sh-bg');
+  const med=document.getElementById('sh-media');
+  const ov=document.getElementById('sh-media-ov');
+  const t1=document.getElementById('sh-t1');
+  const t2=document.getElementById('sh-t2');
+  const hint=document.getElementById('sh-hint');
+  const ct=document.getElementById('sh-content');
+
+  function draw(){
+    const m=mob();
+    const w=300+p*(m?650:1250);
+    const h=400+p*(m?200:400);
+    const tx=p*(m?180:150);
+    if(bg)bg.style.opacity=Math.max(0,1-p);
+    if(med){med.style.width=w+'px';med.style.height=h+'px'}
+    if(ov)ov.style.opacity=Math.max(0,0.45-p*0.3);
+    if(t1)t1.style.transform=`translateX(-${tx}vw)`;
+    if(t2)t2.style.transform=`translateX(${tx}vw)`;
+    if(hint)hint.style.opacity=Math.max(0,1-p*3);
+    if(ct)ct.classList.toggle('sh-vis',show);
+  }
+
+  function move(d){
+    p=Math.min(Math.max(p+d,0),1);
+    if(p>=1){expanded=true;show=true}
+    else if(p<0.75)show=false;
+    draw();
+  }
+
+  window.addEventListener('wheel',function(e){
+    if(expanded&&e.deltaY<0&&window.scrollY<=5){expanded=false;e.preventDefault();return}
+    if(!expanded){e.preventDefault();move(e.deltaY*0.0009)}
+  },{passive:false});
+
+  window.addEventListener('scroll',function(){if(!expanded)window.scrollTo(0,0)});
+
+  window.addEventListener('touchstart',function(e){tY=e.touches[0].clientY},{passive:false});
+  window.addEventListener('touchmove',function(e){
+    if(!tY)return;
+    const dy=tY-e.touches[0].clientY;
+    if(expanded&&dy<-20&&window.scrollY<=5){expanded=false;e.preventDefault();return}
+    if(!expanded){e.preventDefault();move(dy*(dy<0?.008:.005));tY=e.touches[0].clientY}
+  },{passive:false});
+  window.addEventListener('touchend',function(){tY=0});
+
+  draw();
+})();
+
+// Active nav section highlight on scroll
+const navSections=['about','services','products','advantages','calculator','contacts']
+const navAs=document.querySelectorAll('.nav-links a:not(.nav-btn)')
+const secObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navAs.forEach(a=>a.classList.toggle('nav-active',a.getAttribute('href')==='#'+e.target.id))
+    }
+  })
+},{threshold:0.3})
+navSections.forEach(id=>{const el=document.getElementById(id);if(el)secObs.observe(el)})
+
+// Form
+function sendForm(){
+  if(!document.getElementById('fn').value||!document.getElementById('fp').value){
+    alert('Пожалуйста, заполните имя и телефон.');return
+  }
+  const btn=document.querySelector('.form-sub')
+  btn.textContent='Отправка...'
+  btn.disabled=true
+  setTimeout(()=>{
+    document.getElementById('ct-form-wrap').innerHTML=`
+    <div style="text-align:center;padding:48px 20px">
+      <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="#0C509D" stroke-width="1.5" style="margin:0 auto 20px"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      <div style="font-family:'Russo One',sans-serif;font-size:22px;color:#fff;margin-bottom:12px">Заявка отправлена</div>
+      <div style="font-size:15px;color:var(--silver);line-height:1.7">Мы свяжемся с вами в течение рабочего дня. Спасибо!</div>
+    </div>`
+  },1400)
+}
+</script>
+</body>
+</html>
